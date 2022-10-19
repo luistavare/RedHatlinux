@@ -194,6 +194,8 @@ Fazer um backup:
 ```
 
 editar o .conf:
+  * Descometas o `listen-on`,`listen-on-v6` e `directory`
+
 ```
 acl clients {192.0.2.0/24;};
 
