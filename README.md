@@ -68,13 +68,13 @@ sudo amazon -linux-extras install nginx1
 
 Iniciar o serviso nginx:
 ```
-systemctl start nginx.service 
+sudo systemctl start nginx.service 
 ```
 
 Iniciar o serviso todas as vezes que a maquina for ligada:
 
 ```
-systemctl enable --now nginx.service 
+sudo systemctl enable --now nginx.service 
 ```
 
 
@@ -85,12 +85,12 @@ netstat -tapn
 Alterar a configuração do nginx:
 ```
 cd /etc/nginx/
-nano nginx.conf
+sudo nano nginx.conf
 ```
 
 Não esquecer de reiniciar o serviso depois de alterar o .conf:
 ```
-systemctl restart nginx.service 
+sudo systemctl restart nginx.service 
 ```
 
 Alterar o HTML: 
@@ -105,6 +105,13 @@ Exemplo:
 <Ip_privado_do_servidor> www.central.pt
 <Ip_privado_do_servidor> www.ocidental.pt
 <Ip_privado_do_servidor> www.oriental.pt
+```
+
+Mudar o grupo de um ficheiro pu pasta:
+```
+chgrp -R <nome_da_pasta/ficheiro> <nome_do_grupo> <localização_da_pasta/ficeiro>
+Exemplo:
+  chgrp -R central central /usr/share/nginx/central/
 ```
 
 
