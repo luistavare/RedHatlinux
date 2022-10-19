@@ -39,23 +39,23 @@ $ rm -r <nome_da_pasta>
 # Red Hat Linux Servidor
 ## 1.1 Instalar nginx
 
-Instalar nginx:
+1. Instalar nginx:
 ```
 # amazon -linux-extras install nginx1
 ```
 
-Iniciar o serviso nginx:
+2. Iniciar o serviso nginx:
 ```
 # systemctl start nginx.service 
 ```
 
-Iniciar o serviso todas as vezes que a maquina for ligada:
+3. Iniciar o serviso todas as vezes que a maquina for ligada:
 
 ```
 # systemctl enable --now nginx.service 
 ```
 
-Verificar se a port 80 está aberta: 
+4. Verificar se a port 80 está aberta: 
 ```
 $ netstat -tapn
 ```
