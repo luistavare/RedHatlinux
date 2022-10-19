@@ -194,7 +194,7 @@ chmod o+rwx <nome_do_ficheiro/pasta>
 ```
 
 2. editar o .conf:
-...* Descometas o `listen-on`,`listen-on-v6` e `directory`. ...
+2.1 Descometas o `listen-on`,`listen-on-v6` e `directory`. 
 
 ```
 acl clients {192.0.2.0/24;};
@@ -206,6 +206,110 @@ options {
 
         directory       "/var/named";
 ```
+2.2 Adicionar `allow-query`
+```
+    allow-query     { localhost; clients; };
+    allow-recursion { localhost; clients; };
+    recursion yes;
+    allow-update { none; };
+    allow-transfer { localhost; };
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+```
+
+2.3 usar o pacote 
+```
+include "/etc/named.rfc1912.zones";
+```
+
+2.4 criar uma configuração de zona extra:
+```
+include "/etc/named/example.zones";
+```
+3. Criar uma zona `/etc/named/example.zones`:
+```
+//forward zone
+zone "example.com" IN {
+        type master;
+        file "example.com.zone";
+
+};
+
+//backward zone
+zone "2.0.192.in-addr.arpa" IN {
+        type master;
+        file "example.com.rzone";
+
+};
+```
+* type: It defines the zone’s role of the server.
+* master: It is an authoritative server and maintains the master copy of the zone data.
+* file: It specifies the zone’s database file.
+
+4. ir para o diretorio do DNS `/var/named/`:
+```
+# cd /var/named/
+# ls
+
+data    dynamic  named.ca  named.empty    named.localhost    named.loopback  slaves
+```
+
+5. criar um ficheiro com o nome da tua forward zone parameters `/var/named/example.com.zone`: 
+```
+$TTL    86400
+@	IN	SOA	example.com.	root (
+		42         ; serial
+		3H         ; refresh
+		15M        ; retry
+		1W         ; expiry
+		1D )       ; minimum
+
+	IN	NS	ns.example.com.
+
+ns              IN A            192.0.2.1
+station1        IN A            192.0.2.101
+station2        IN A            192.0.2.102
+station3        IN A            192.0.2.103
+```
+6. criar um ficheiro com o nome da tua reverse zone parameters `/var/named/example.com.rzone`:
+```
+$TTL    86400
+@	IN	SOA	example.com.	root.example.com. (
+		1997022700 ; serial
+		28800      ; refresh
+		14400      ; retry
+		3600000    ; expire
+		86400 )    ; minimum
+
+	IN	NS	ns.example.com.
+
+101     IN      PTR     station1.example.com.
+102     IN      PTR     station2.example.com.
+103     IN      PTR     station3.example.com.
+```
+
+7. definir as permissoes da zona:
+```
+# chown root:named /var/named/example.com.zone /var/named/example.com.rzone
+# chmod 640 /var/named/example.com.zone /var/named/example.com.rzone
+```
+
+8. reiniciar o BIND:
+```
+# systemctl restart named
+```
+
+2.5 Verificação
+
+
+
+
 
 # Red Hat Linux Cliente
 ## Instalar o desktop
