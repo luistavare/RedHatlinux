@@ -77,15 +77,38 @@ Iniciar o serviso todas as vezes que a maquina for ligada:
 systemctl enable --now nginx.service 
 ```
 
+
 Verificar se a port 80 está aberta 
 ```
 netstat -tapn
 ```
-Para alterar a configuração do nginx:
+Alterar a configuração do nginx:
 ```
 cd /etc/nginx/
 nano nginx.conf
 ```
+
+Não esquecer de reiniciar o serviso depois de alterar o .conf:
+```
+systemctl restart nginx.service 
+```
+
+Alterar o HTML: 
+```
+cd /usr/share/nginx/html
+```
+
+Editar os hosts:
+```
+nano /etc/hosts
+Exemplo:
+<Ip_privado_do_servidor> www.central.pt
+<Ip_privado_do_servidor> www.ocidental.pt
+<Ip_privado_do_servidor> www.oriental.pt
+```
+
+
+
 ## Red Hat Linux Cliente
 
 
