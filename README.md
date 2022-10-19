@@ -3,7 +3,7 @@
 
 Mudar o Host name:
 ```
-sudo hostnamectl set-hostname LinuxSRV
+sudo hostnamectl set-hostname <nome>.enta.pt
 ```
 
 Atualizar o sistema:
