@@ -164,29 +164,37 @@ chmod o+rwx <nome_do_ficheiro/pasta>
 
 ```
 sudo su -
-
+```
+```
 amazon-linux-extras install epel
-
+```
+```
 yum groupinstall "MATE Desktop"
-
+```
+```
 yum install xrdp chromium filezilla
-
+```
+```
 systemctl enable --now xrdp
-
+```
 This will make all users to have the graphic interface:
-  
-  sudo bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
-
-
+```  
+sudo bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
+```
+```
 adduser <nome_do_utilizador>
 passwd <nome_do_utilizador>
-
+```
+```
 echo "/usr/bin/mate-session" > ~/.Xclients && chmod +x ~/.Xclients
-
+```
+```
 reboot
 ```
 Depois de reiniciar
 ```
- sudo firewall-cmd --add-port=3389/tcp --permanent
- sudo firewall-cmd --reload
+sudo firewall-cmd --add-port=3389/tcp --permanent
+```
+```
+sudo firewall-cmd --reload
 ```
