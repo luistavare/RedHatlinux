@@ -102,9 +102,9 @@ Editar os hosts:
 ```
 nano /etc/hosts
 Exemplo:
-<Ip_privado_do_servidor> www.central.pt
-<Ip_privado_do_servidor> www.ocidental.pt
-<Ip_privado_do_servidor> www.oriental.pt
+  <Ip_privado_do_servidor> www.central.pt
+  <Ip_privado_do_servidor> www.ocidental.pt
+  <Ip_privado_do_servidor> www.oriental.pt
 ```
 
 Mudar o grupo de um ficheiro pu pasta:
