@@ -179,7 +179,7 @@ systemctl enable --now xrdp
 ```
 This will make all users to have the graphic interface:
 ```  
-sudo bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
+bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
 ```
 ```
 adduser <nome_do_utilizador>
