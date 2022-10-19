@@ -145,17 +145,17 @@ x = executar
 
 utilizador:
 ```
-chmod u+rwx listar
+chmod u+rwx <nome_do_ficheiro/pasta>
 ```
 
 Groupo:
 ```
-chmod g+rwx listar
+chmod g+rwx <nome_do_ficheiro/pasta>
 ```
 
 Outros:
 ```
-chmod o+rwx listar
+chmod o+rwx <nome_do_ficheiro/pasta>
 ```
 
 
