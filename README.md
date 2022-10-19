@@ -1,84 +1,88 @@
 # Red Hat linux
-
+# Codigos basicos
 
 Mudar o Host name:
 ```
-sudo hostnamectl set-hostname <nome>.enta.pt
+$ sudo hostnamectl set-hostname <nome>.enta.pt
 ```
 
 Atualizar o sistema:
 ```
-sudo yum update
+$ sudo yum update
 ```
 
 Onde tu estas:
 ```
-pwd
+$ pwd
 ``` 
 
 Entrar como root:
 ```
-sudo su -
+$ sudo su -
 ```
 
 Criar uma pasta:
 ```
-mkdir <nome_da_pasta>
+$ mkdir <nome_da_pasta>
 ```
 
 Remover uma pasta:
 ```
-rmdir <nome_da_pasta>
+$ rmdir <nome_da_pasta>
 ```
 
 Remover uma pasta se não estiver vazia:
 ```
-rm -r <nome_da_pasta>
+$ rm -r <nome_da_pasta>
 ```
 
 # Red Hat Linux Servidor
-## Instalar nginx
+## 1.1 Instalar nginx
 
 Instalar nginx:
 ```
-sudo amazon -linux-extras install nginx1
+# amazon -linux-extras install nginx1
 ```
 
 Iniciar o serviso nginx:
 ```
-sudo systemctl start nginx.service 
+# systemctl start nginx.service 
 ```
 
 Iniciar o serviso todas as vezes que a maquina for ligada:
 
 ```
-sudo systemctl enable --now nginx.service 
+# systemctl enable --now nginx.service 
 ```
-
 
 Verificar se a port 80 está aberta: 
 ```
-netstat -tapn
+$ netstat -tapn
 ```
+
+## 1.2 Configurar nginx
+
 Alterar a configuração do nginx:
 ```
-cd /etc/nginx/
-sudo nano nginx.conf
+$ cd /etc/nginx/
+$ sudo nano nginx.conf
 ```
 
 Não esquecer de reiniciar o serviso depois de alterar o nginx.conf:
 ```
-sudo systemctl restart nginx.service 
+$ sudo systemctl restart nginx.service 
 ```
+## 1.3 configurar o HTML
 
 Alterar o HTML: 
 ```
-cd /usr/share/nginx/html
+$ cd /usr/share/nginx/html
 ```
 
 Editar os hosts para entrar nos sites:
 ```
-nano /etc/hosts
+$ sudo nano /etc/hosts
+
 Exemplo:
   <Ip_privado_do_servidor> www.central.pt
   <Ip_privado_do_servidor> www.ocidental.pt
@@ -86,25 +90,28 @@ Exemplo:
 ```
 
 
-## Instalar FTP 
+# Instalar VSFTPD 
+## 2.1 Instalar FTP
 
 Instalar ftp:
 ```
-sudo yum install vsftpd
+# yum install vsftpd
 ```
 
 Ativar ftp:
 ```
-sudo systemctl start vsftp
+# systemctl start vsftp
 ```
 Iniciar o serviso todas as vezes que a maquina for ligada:
 ```
-sudo systemctl enable --now vsftpd
+# systemctl enable --now vsftpd
 ```
+
+## 2.2 Configurações do FTP 
 
 Alterar a configuração do ftp:
 ```
-sudo nano /etc/vsftpd/vsftpd.conf
+# nano /etc/vsftpd/vsftpd.conf
   Descomentar e alterar:
   
     anonymous_enable=NO
@@ -119,18 +126,21 @@ sudo nano /etc/vsftpd/vsftpd.conf
 
 Não esquecer de reiniciar o serviso depois de alterar o vsftpd.conf:
 ```
-sudo systemctl restart vsftpd
+# systemctl restart vsftpd
 ```
+
+
+## 2.3 Adicionar Utilizadores 
 
 Adicionar os utilizadores:
 ```
-adduser <nome_do_user>
-passwd <nome_do_user>
+# adduser <nome_do_user>
+# passwd <nome_do_user>
 ```
 
 Mudar o grupo de um ficheiro pu pasta:
 ```
-chgrp -R <nome_da_pasta/ficheiro> <nome_do_grupo> <localização_da_pasta/ficeiro>
+# chgrp -R <nome_da_pasta/ficheiro> <nome_do_grupo> <localização_da_pasta/ficeiro>
 Exemplo:
   chgrp -R central central /usr/share/nginx/central/
 ```
@@ -158,43 +168,80 @@ Outros:
 chmod o+rwx <nome_do_ficheiro/pasta>
 ```
 
+# Instalar BIND
+## 3.1 Instalar BIND
+
+Instalar bind:
+```
+# yum install bind bind-utils
+```
+
+Ativar o bind:
+```
+# systemctl enable --now named
+```
+
+Verificar se o bind está a funcionar:
+```
+# systemctl status named
+```
+
+## 3.2 Configurar o bind
+
+Fazer um backup:
+```
+# cp /etc/named.conf /etc/named.conf.orig
+```
+
+editar o .conf:
+```
+acl clients {192.0.2.0/24;};
+
+options {
+        listen-on port 53 { any; };
+
+        listen-on-v6 port 53 { any; };
+
+        directory       "/var/named";
+```
 
 # Red Hat Linux Cliente
 ## Instalar o desktop
 
 ```
-sudo su -
+$ sudo su -
 ```
 ```
-amazon-linux-extras install epel
+# amazon-linux-extras install epel
 ```
 ```
-yum groupinstall "MATE Desktop"
+# yum groupinstall "MATE Desktop"
 ```
 ```
-yum install xrdp chromium filezilla
+# yum install xrdp chromium filezilla
 ```
 ```
-systemctl enable --now xrdp
+# systemctl enable --now xrdp
 ```
 This will make all users to have the graphic interface:
 ```  
-bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
+# bash -c 'echo PREFERRED=/usr/bin/mate-session > /etc/sysconfig/desktop'
 ```
 ```
-adduser <nome_do_utilizador>
-passwd <nome_do_utilizador>
+# adduser <nome_do_utilizador>
+# passwd <nome_do_utilizador>
 ```
 ```
-echo "/usr/bin/mate-session" > ~/.Xclients && chmod +x ~/.Xclients
+# echo "/usr/bin/mate-session" > ~/.Xclients && chmod +x ~/.Xclients
 ```
 ```
-reboot
+# reboot
 ```
 Depois de reiniciar
 ```
-sudo firewall-cmd --add-port=3389/tcp --permanent
+$ sudo firewall-cmd --add-port=3389/tcp --permanent
 ```
 ```
-sudo firewall-cmd --reload
+$ sudo firewall-cmd --reload
 ```
+
