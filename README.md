@@ -62,24 +62,24 @@ $ netstat -tapn
 
 ## 1.2 Configurar nginx
 
-Alterar a configuração do nginx:
+1. Alterar a configuração do nginx:
 ```
 $ cd /etc/nginx/
 $ sudo nano nginx.conf
 ```
 
-Não esquecer de reiniciar o serviso depois de alterar o nginx.conf:
+2. Não esquecer de reiniciar o serviso depois de alterar o nginx.conf:
 ```
 $ sudo systemctl restart nginx.service 
 ```
 ## 1.3 configurar o HTML
 
-Alterar o HTML: 
+1. Alterar o HTML: 
 ```
 $ cd /usr/share/nginx/html
 ```
 
-Editar os hosts para entrar nos sites:
+2. Editar os hosts para entrar nos sites:
 ```
 $ sudo nano /etc/hosts
 
@@ -93,23 +93,23 @@ Exemplo:
 # Instalar VSFTPD 
 ## 2.1 Instalar FTP
 
-Instalar ftp:
+1. Instalar ftp:
 ```
 # yum install vsftpd
 ```
 
-Ativar ftp:
+2. Ativar ftp:
 ```
 # systemctl start vsftp
 ```
-Iniciar o serviso todas as vezes que a maquina for ligada:
+3. Iniciar o serviso todas as vezes que a maquina for ligada:
 ```
 # systemctl enable --now vsftpd
 ```
 
 ## 2.2 Configurações do FTP 
 
-Alterar a configuração do ftp:
+1. Alterar a configuração do ftp:
 ```
 # nano /etc/vsftpd/vsftpd.conf
   Descomentar e alterar:
@@ -124,7 +124,7 @@ Alterar a configuração do ftp:
     
 ```
 
-Não esquecer de reiniciar o serviso depois de alterar o vsftpd.conf:
+2. Não esquecer de reiniciar o serviso depois de alterar o vsftpd.conf:
 ```
 # systemctl restart vsftpd
 ```
@@ -132,13 +132,13 @@ Não esquecer de reiniciar o serviso depois de alterar o vsftpd.conf:
 
 ## 2.3 Adicionar Utilizadores 
 
-Adicionar os utilizadores:
+1. Adicionar os utilizadores:
 ```
 # adduser <nome_do_user>
 # passwd <nome_do_user>
 ```
 
-Mudar o grupo de um ficheiro pu pasta:
+2. Mudar o grupo de um ficheiro pu pasta:
 ```
 # chgrp -R <nome_da_pasta/ficheiro> <nome_do_grupo> <localização_da_pasta/ficeiro>
 Exemplo:
@@ -171,30 +171,30 @@ chmod o+rwx <nome_do_ficheiro/pasta>
 # Instalar BIND
 ## 3.1 Instalar BIND
 
-Instalar bind:
+1. Instalar bind:
 ```
 # yum install bind bind-utils
 ```
 
-Ativar o bind:
+2. Ativar o bind:
 ```
 # systemctl enable --now named
 ```
 
-Verificar se o bind está a funcionar:
+3. Verificar se o bind está a funcionar:
 ```
 # systemctl status named
 ```
 
 ## 3.2 Configurar o bind
 
-Fazer um backup:
+1. Fazer um backup:
 ```
 # cp /etc/named.conf /etc/named.conf.orig
 ```
 
-editar o .conf:
-  * Descometas o `listen-on`,`listen-on-v6` e `directory`
+2. editar o .conf:
+...* Descometas o `listen-on`,`listen-on-v6` e `directory`. ...
 
 ```
 acl clients {192.0.2.0/24;};
