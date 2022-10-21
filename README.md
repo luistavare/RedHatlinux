@@ -172,7 +172,7 @@ chmod o+rwx <nome_do_ficheiro/pasta>
 
 montar a pasta:
 ```
-mout --bind /var/www/central/ /home/central/^C
+mout --bind /var/www/central/ /home/central/
 ```
 # Instalar BIND
 ## 3.1 Instalar BIND
