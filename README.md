@@ -123,6 +123,7 @@ Exemplo:
   	pasv_enable=YES
   	pasv_min_port=1024
   	pasv_max_port=1048
+	write_enable=YES
     
 ```
 
