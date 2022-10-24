@@ -67,6 +67,61 @@ $ netstat -tapn
 $ cd /etc/nginx/
 $ sudo nano nginx.conf
 ```
+HTTP:
+```
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  www.<nome_do_site>.pt;
+        root         /usr/share/nginx/<Pasta_do_site>;
+
+        include /etc/nginx/default.d/*.conf;
+
+        error_page 404 /404.html;
+        location = /404.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+    }
+```
+HTTPS (localização do sertificado já foi mudada):
+```
+    server {
+        listen       443 ssl http2;
+        listen       [::]:443 ssl http2;
+        server_name  www.<nome_do_site>.pt;
+        root         /usr/share/nginx/<Pasta_do_site>;
+
+        ssl_certificate "/etc/ssl/certs/nginx-selfsigned.crt";       
+        ssl_certificate_key "/etc/ssl/private/nginx-selfsigned.key";  
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_prefer_server_ciphers on;
+
+        include /etc/nginx/default.d/*.conf;
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+```
+
+criar um sertificado https:
+```
+cd /etc/ssl 
+mkdir private
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+e mudar a localização do sertificado no ficheiro nginx.conf 
+
+        ssl_certificate "/etc/ssl/certs/nginx-selfsigned.crt";
+        ssl_certificate_key "/etc/ssl/private/nginx-selfsigned.key";
+```
 
 2. Não esquecer de reiniciar o serviso depois de alterar o nginx.conf:
 ```
