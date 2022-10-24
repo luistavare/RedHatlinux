@@ -41,7 +41,7 @@ $ rm -r <nome_da_pasta>
 
 1. Instalar nginx:
 ```
-# amazon -linux-extras install nginx1
+# amazon-linux-extras install nginx1
 ```
 
 2. Iniciar o serviso nginx:
@@ -62,7 +62,7 @@ $ netstat -tapn
 
 ## 1.2 Configurar nginx
 
-1. Alterar a configuração do nginx:
+1. Alterar a configuração do nginx (adicionar sites):
 ```
 $ cd /etc/nginx/
 $ sudo nano nginx.conf
